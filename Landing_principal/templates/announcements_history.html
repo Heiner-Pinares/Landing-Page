@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Landing Page - Facturación a Clientes{% endblock %}
+{% block content %}
+
+
+<h1>Historial de Anuncios</h1>
+<div style="display: flex; flex-wrap: wrap; padding: 25px;">
+    {% for announcement in announcements %}
+    <div style="flex: 1 1 30%; margin: 10px; border: 1px solid #ccc; border-radius: 8px; padding: 10px;">
+        <img src="{{ announcement.image.url }}" alt="Anuncio" style="width: 100%; border-radius: 8px;">
+        <p><strong>Descripción:</strong> {{ announcement.description }}</p>
+        <p><strong>Fecha:</strong> {{ announcement.created_at }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

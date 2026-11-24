@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Landing Page - Facturación a Clientes{% endblock %}
+{% block content %}
+
+<div class="search-bar-container" style="display: flex; align-items: center;">
+    <form action="/buscar_personas/" method="get" style="flex: 1;">
+        <input type="text" name="nombre" placeholder="Buscar persona" class="search-input">
+        <button type="submit" class="search-button">Buscar</button>
+    </form>
+    <a href="https://outlook.office.com" target="_blank" class="icon-button">
+        <img src="https://img.icons8.com/?size=100&id=ut6gQeo5pNqf&format=png&color=000000" alt="Outlook" style="width: 30px; height: 30px; margin-left: 10px;">
+    </a>
+    <a href="https://teams.microsoft.com" target="_blank" class="icon-button">
+        <img src="https://img.icons8.com/?size=100&id=zQ92KI7XjZgR&format=png&color=000000" alt="Teams" style="width: 30px; height: 30px; margin-left: 10px;">
+    </a>
+    <a href="https://app.powerbi.com/home?ctid=ec6c0d0f-6a0c-40b0-abf2-af3160580c51" target="_blank" class="icon-button">
+        <img src="https://img.icons8.com/?size=100&id=3sGOUDo9nJ4k&format=png&color=000000" alt="Power Bi" style="width: 30px; height: 30px; margin-left: 10px;">
+    </a>       
+</div>
+<iframe id="result-frame" src="" frameborder="0" style="width: 100%; height: 100vh;"></iframe>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var nombreGuardado = localStorage.getItem('nombreBuscado');
+        if (nombreGuardado) {
+            document.querySelector('input[name="nombre"]').value = nombreGuardado;
+            document.getElementById('result-frame').src = 'http://eclaro/SitePages/BusquedaPersonas.aspx?k=' + encodeURIComponent(nombreGuardado);
+        }
+    });
+
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var nombre = document.querySelector('input[name="nombre"]').value.trim();
+        if (nombre) {
+            localStorage.setItem('nombreBuscado', nombre); // Guardar el nombre en localStorage
+            var iframe = document.getElementById('result-frame');
+            iframe.src = 'http://eclaro/SitePages/BusquedaPersonas.aspx?k=' + encodeURIComponent(nombre);
+        } else {
+            alert('Por favor, ingrese un nombre para buscar.');
+        }
+    });
+</script>
+<script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Obtener el valor del input
+        var nombre = document.querySelector('input[name="nombre"]').value.trim();
+        
+        // Verificar que el campo no esté vacío
+        if (nombre) {
+            var iframe = document.getElementById('result-frame');
+            
+            // Actualizar el iframe con la URL correcta
+            iframe.src = 'http://eclaro/SitePages/BusquedaPersonas.aspx?k=' + encodeURIComponent(nombre);
+        } else {
+            alert('Por favor, ingrese un nombre para buscar.');
+        }
+    });
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+

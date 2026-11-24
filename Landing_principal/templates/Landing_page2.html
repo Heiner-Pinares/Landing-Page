@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+
+{% block title %}Landing Page - Facturación a Clientes{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<!-- ===== MODAL DE VIDEO DE BIENVENIDA ===== -->
+<div id="video-modal-overlay" style="display:flex;">
+  <div id="video-modal-box">
+    <span id="video-modal-close">&times;</span>
+    <video id="intro-video" autoplay muted playsinline>
+      <source src="{% static 'videos/trailer_guardianes.mp4' %}" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<style>
+  #video-modal-overlay {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.75);
+    align-items: center; justify-content: center;
+    z-index: 99999;
+  }
+  #video-modal-box {
+    position: relative; max-width: 640px; width: 90%;
+    background: #000; border-radius: 10px;
+  }
+  #intro-video { width: 100%; display: block; border-radius: 10px; }
+  #video-modal-close {
+    position: absolute; top: -16px; right: -16px;
+    width: 36px; height: 36px;
+    background: #fff; color: #000;
+    border-radius: 50%;
+    font-size: 26px; line-height: 36px; text-align: center;
+    cursor: pointer; font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var overlay = document.getElementById("video-modal-overlay");
+    var closeBtn = document.getElementById("video-modal-close");
+    closeBtn.addEventListener("click", function () {
+      overlay.style.display = "none";
+      var v = document.getElementById("intro-video");
+      if (v) { v.pause(); }
+    });
+  });
+</script>
+<!-- ===== FIN MODAL DE VIDEO ===== -->
+
+
+ <div id="announcement" class="announcement" style="display: none;"> <!-- Inicialmente oculto -->
+  <div class="announcement-content">
+      <button id="close-announcement" class="close-btn">X</button>
+      {% if announcement and announcement.image %}
+      <p>{{ announcement.description }}</p>
+      <a href="{{ announcement.image.url }}" target="_blank"> <!-- Enlace abre en nueva pestaña -->
+          <img id="announcement-image" src="{{ announcement.image.url }}" alt="Anuncio">
+      </a>
+      {% endif %}
+  </div>
+</div>
+
+
+<!-- IMPLEMENTACIÓN DEL BUSCADOR DE GOOGLE-->
+<div class="search-bar-container" style="display: flex; align-items: center;">
+    
+  <form id="search-form" onsubmit="openSearchPage(); return false;" style="flex: 1;">
+    <input type="text" id="nombre" name="nombre" placeholder="Buscar persona" class="search-input">
+    <button type="submit" class="search-button">Buscar</button>
+  </form>
+    <a href="https://outlook.office.com" target="_blank" class="icon-button">
+        <img src="https://img.icons8.com/?size=100&id=ut6gQeo5pNqf&format=png&color=000000" alt="Outlook" style="width: 30px; height: 30px; margin-left: 10px;">
+    </a>
+    <a href="https://teams.microsoft.com" target="_blank" class="icon-button">
+        <img src="https://img.icons8.com/?size=100&id=zQ92KI7XjZgR&format=png&color=000000" alt="Teams" style="width: 30px; height: 30px; margin-left: 10px;">
+    </a>
+    <a href="https://app.powerbi.com/home?ctid=ec6c0d0f-6a0c-40b0-abf2-af3160580c51" target="_blank" class="icon-button">
+        <img src="https://img.icons8.com/?size=100&id=3sGOUDo9nJ4k&format=png&color=000000" alt="Power Bi" style="width: 30px; height: 30px; margin-left: 10px;">
+    </a>       
+    
+</div>
+
+
+<div class="carousel-container">
+  <div class="carousel">
+      {% for image in transition_images %}
+      <img src="{{ image.image.url }}" alt="Imagen de transición" class="{% if forloop.first %}active{% endif %}">
+      {% endfor %}
+  </div>
+  <div class="carousel-indicators">
+      {% for image in transition_images %}
+      <span class="indicator {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
+      {% endfor %}
+  </div>
+</div>
+
+
+
+<!-- implementando botones de acciones principales -->
+<div class="custom-container">
+    <h1 class="custom-title">Acciones Rápidas</h1>
+    <div class="custom-actions-grid">
+      <a href="http://intranetrrhh/web_regasistencia/DefaultBody.aspx" target="_blank" class="custom-action-button custom-action-delegar">
+        <i class="fas fa-calendar-check custom-icon"></i>
+        <p>Registro de Asistencia</p>
+      </a>
+      <a href="http://isim.tim.com.pe/itim/self/jsp/logon/login.jsp" target="_blank" class="custom-action-button custom-action-ausencias">
+        <i class="fas fa-key custom-icon"></i>        
+        <p>Autoservicio Clave Única</p>
+      </a>
+      <a href="https://successfactors.claro.com.pe/"   target="_blank" class="custom-action-button custom-action-admin-aprendizaje">
+        <i class="fas fa-users-cog custom-icon"></i>
+        <p>Success Factors</p>
+      </a>
+      <a href="http://wfportalnintex/dir/operacionescomerciales/FacturacionVarios/FacturacionVarios/Forms/AllItems.aspx" target="_blank"   class="custom-action-button custom-action-favoritos">
+        <i class="fas fa-cogs custom-icon"></i>
+        <p>Nintex Facturación a Clientes</p>
+      </a>
+      <a href="http://wfportalnintex/dir/operacionescomerciales/EvidenciasSOX/EvidenciasFacturacion/Forms/AllItems.aspx" target="_blank"   class="custom-action-button custom-action-favoritos">
+        <i class="fas fa-cogs custom-icon"></i>
+        <p>Nintex Evidencias SOX</p>
+      </a>
+      <a href="http://172.19.219.218/Account/Login" target="_blank" class="custom-action-button custom-action-feedback">
+        <i class="fas fa-project-diagram custom-icon"></i>
+        <p>Portal Financiero</p>
+      </a>
+      <a href="http://clarop-smartit.claro.pe" target="_blank" class="custom-action-button custom-action-organigrama">
+        <i class="fas fa-link custom-icon"></i>
+        <p>Portal Conocimiento-REMEDY</p>
+      </a>
+      <a href="http://intranetrrhh/buscapersonas/"  target="_blank" class="custom-action-button custom-action-perfil">
+        <i class="fas fa-user-friends custom-icon"></i>
+        <p>Buscar Persona</p>
+      </a>
+      <!-- <a href="http://172.19.194.154:9000/login/"   target="_blank"  class="custom-action-button custom-action-perfil">
+        <i class="fas fa-user-tie"></i>
+        <p>E-Learning Gerencia Facturación</p>
+      </a> -->
+      <a href="http://clarop-dwp.claro.pe"  target="_blank"  class="custom-action-button custom-action-organigrama">
+        <i class="fas fa-link custom-icon"></i>
+        <p>HELIX</p>
+      </a>
+      <a href="http://amxprdepr01.claro.com.co:50100/irj/portal" target="_blank" class="custom-action-button custom-action-asistencia">
+        <i class="fas fa-building custom-icon"></i>
+        <p>Portal Capex</p>
+      </a>
+      <a href="http://intranetsiop/siop/Default.aspx" target="_blank"  class="custom-action-button custom-action-recordatorios">
+        <i class="fas fa-users custom-icon"></i>
+        <p>Sistema de Operaciones(SIOP)</p>
+      </a>
+      <a href="http://portaldeconocimiento.claro.com.pe/web/guest/login?" target="_blank"  class="custom-action-button custom-action-aprendizaje">
+        <i class="fas fa-book-open custom-icon"></i>
+        <p>Portal de Conocimiento (SUIC)</p>
+      </a>
+      <a href="http://intranetrrhh/web_visitas/" target="_blank" class="custom-action-button custom-action-app-movil">
+        <i class="fas fa-user-shield custom-icon"></i>
+        <p>Control de Ingresos</p>
+      </a>
+      <a href="http://intranetsicap/pprov/Default.aspx?inicio=1"   target="_blank"  class="custom-action-button custom-action-flujos">
+        <i class="fas fa-clipboard-check custom-icon"></i>
+        <p>Portal de Provisiones</p>
+      </a>
+      <!-- <a href="http://172.19.194.225:3000/GerenciaFacturacion" target="_blank"   class="custom-action-button custom-action-favoritos">
+        <i class="fas fa-cogs custom-icon"></i>
+        <p>Repositorio Desarrollos
+        </p>
+      </a> -->
+      <a href="http://intranetsiacunico/" target="_blank"  class="custom-action-button custom-action-recordatorios">
+        <i class="fas fa-users custom-icon"></i>
+        <p>SIAC Único</p>
+      </a>
+      <a href="https://administracionfinanciera.sap.claro.com.pe/" target="_blank" class="custom-action-button custom-action-objetivos">
+        <i class="fas fa-file-invoice-dollar custom-icon"></i>
+        <p>Portal y Solicitud de Provisiones</p>
+      </a>
+      <a href="http://intranetsiacrecns/siacrec/SIACREC_Login.aspx"  target="_blank" class="custom-action-button custom-action-favoritos">
+        <i class="fas fa-tools custom-icon"></i>
+        <p>Sistema de Gestión de Reclamo</p>
+      </a>
+      <a href="http://intranetsisact2/sisact/Index.aspx" target="_blank"   class="custom-action-button custom-action-favoritos">
+        <i class="fas fa-cogs custom-icon"></i>
+        <p>Sistema de Activaciones</p>
+      </a>
+      <a href="https://ereceipt-pe-claro.sovos.com/Facturacion/login.jsp" target="_blank"   class="custom-action-button custom-action-admin-aprendizaje">
+        <i class="fas fa-dollar-sign custom-icon"></i>
+        <p>SOVOS Facturación </p>
+      </a>
+      <a href="https://capacitatecarso.com/login" target="_blank"   class="custom-action-button custom-action-favoritos">
+        <i class="fas fa-user-friends custom-icon"></i>
+        <p>Carso</p>
+      </a>
+      <a href="https://identidades.claro.com.pe/isam/sps/QuickFed/saml20/login" target="_blank" class="custom-action-button custom-action-delegar">
+        <i class="fas fa-file-invoice-dollar custom-icon"></i>
+        <p>Portal ARIBA</p>
+      </a>
+      <a href="http://172.19.44.208:8080/Facturacion/login.jsp" target="_blank"   class="custom-action-button custom-action-admin-aprendizaje">
+        <i class="fas fa-dollar-sign custom-icon"></i>
+        <p>PAPERLESS</p>
+      </a>
+      <a href="https://10.95.224.27:9083/bicp/login.action?" target="_blank" class="custom-action-button custom-action-app-movil">
+        <i class="fas fa-user-shield custom-icon"></i>
+        <p>BCIP</p>
+      </a>
+      <a href="http://wfportalnintex/dir/operacionescomerciales/PedidosFacturacion/PedidosFacturacion/Forms/AllItems.aspx" target="_blank" class="custom-action-button custom-action-app-movil">
+        <i class="fas fa-user-shield custom-icon"></i>
+        <p>Portal Pedidos Facturacion</p>
+      </a>   
+
+
+     
+    </div>
+  </div>
+  <script>
+    function openSearchPage() {
+        var nombre = document.getElementById("nombre").value.trim();
+        if (nombre) {
+            var url = "http://eclaro/SitePages/BusquedaPersonas.aspx?k=" + encodeURIComponent(nombre);
+            window.open(url, "_blank");
+        } else {
+            alert("Por favor, ingrese un nombre para buscar.");
+        }
+    }
+</script>
+
+{% endblock %}

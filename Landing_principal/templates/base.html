@@ -1,0 +1,129 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gerencia Facturación a Clientes{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles2.css' %}">
+    <link rel="stylesheet" href="{% static 'styles_boot.css' %}">
+    <link rel="stylesheet" href="{% static 'styles_conce_mas.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <div class="header">
+        <ul class="menu">
+            <img src="{% static 'images/Claro -Logo Blanco.png' %}" alt="Logo de la Empresa" class="logo">
+            <li><a href="{% url 'landing_page' %}">Inicio</a></li>            
+            <li><a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin"  target="_blank">Sharepoint Gerencia Facturación</a></li>  
+            <li class="dropdown">
+                <a href="#" class="dropdown-btn" ><i class="fas fa-chevron-down"></i> Acceso Rapido</a>
+                <div class="dropdown-content">
+                    <div class="column">
+                        <h3><i class="fas fa-file-alt"></i>Gestion de Documentos</h3>
+                        <ul>
+                            <li><a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/Gesti%C3%B3n-de-Documentos---Facturaci%C3%B3n.aspx"  target="_blank">Gestión Documentaria</a></li>
+                            <li><a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/Capacitaciones-Facturaci%C3%B3n.aspx"  target="_blank">Capacitaciones</a></li>
+                            <li><a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/Gesti%C3%B3n-de-Proyectos.aspx"    target="_blank">Gestión Proyectos</a></li>
+                            <li><a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/Gesti%C3%B3n-de-Incidencias.aspx"    target="_blank">Mejora Continua</a></li>
+                            <li><a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/SGC-Facturaci%C3%B3n.aspx"    target="_blank">Registro SGC</a></li>
+                            <li><a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/inicio-2.aspx" target="_blank">OKR Calidad</a></li>
+                     
+                        </ul>
+                                        
+                </div>
+            </li>    
+            <li class="dropdown">
+                <a href="#" class="dropdown-btn" ><i class="fas fa-chevron-down"></i> Plataformas Facturación</a>
+                <div class="dropdown-content">
+                    <div class="column">
+                        <h3><i class="fas fa-chart-bar"  target="_blank"  onclick="window.location.href='https://app.powerbi.com/home?ctid=ec6c0d0f-6a0c-40b0-abf2-af3160580c51';"></i> Power BI</h3>
+                        <ul>
+                            <li><a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/cf6a7266-9d20-4157-ac0e-6dee1163d880?ctid=ec6c0d0f-6a0c-40b0-abf2-af3160580c51&experience=power-bi"   target="_blank">Metricas Facturación</a></li>
+                            <li><a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/c592da30-77de-40dd-a1bd-98d068672eee?ctid=ec6c0d0f-6a0c-40b0-abf2-af3160580c51&experience=power-bi"   target="_blank">Balance Scoredcard</a></li>
+                            <li><a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/b9ffd5b9-2274-4a5e-93b8-eb6aab0477da?experience=power-bi"  target="_blank">Efectividad Entrega Recibo</a></li>
+                            <li><a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/b5fddb02-14f0-46c5-b7b5-a6e35772d9ea?experience=power-bi"   target="_blank">Cuaderno de Facturación</a></li>
+                            <li><a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/a7d67047-9e45-4450-876c-de16b4080ff3?experience=power-bi"  target="_blank">Cumplimiento SOX</a></li>                      
+                            <li><a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/04c4331f-7231-4cf4-b12b-06521c315f2d?experience=power-bi"  target="_blank">Llamada Satisfacción Cliente</a></li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3><i class="fas fa-file-alt"></i> Nintex Facturación</h3>
+                        <ul>
+                            <li><a href="http://wfportalnintex/dir/operacionescomerciales/Apadece/APADECE/Forms/AllItems.aspx"  target="_blank">Facturación APEDECE</a></li>
+                            <li><a href="http://wfportalnintex/Lists/incidencias/AllItems.aspx"  target="_blank">Nintex Incidencias</a></li>
+
+                            <!-- <li><a href="http://wfportalnintex/dir/operacionescomerciales/EvidenciasSOX/EvidenciasFacturacion/Forms/AllItems.aspx"  target="_blank">Evidencias SOX</a></li>
+                            <li><a href="http://wfportalnintex/dir/operacionescomerciales/FacturacionVarios/FacturacionVarios/Forms/AllItems.aspx"   target="_blank">Facturación a Clientes</a></li> -->
+                            <li><a href="http://wfportalnintex/dir/operacionescomerciales/Refacturacion/Refacturacion/Forms/AllItems.aspx"  target="_blank">Refacturación</a></li>
+                            <li><a href="http://wfportalnintex/dir/operacionescomerciales/PedidosFacturacion/PedidosFacturacion/Forms/AllItems.aspx"  target="_blank">Pedidos Facturación</a></li>
+                            <li><a href="http://wfportalnintex/dir/operacionescomerciales/Reclasificacion/_layouts/15/start.aspx#/Reclasificacion/Forms/AllItems.aspx" target="_blank">Reclasificación Pagos</a></li>
+                            <li><a href="http://wfportalnintex/dir/operacionescomerciales/RetencionSGA/RetencionSGA/Forms/AllItems.aspx" target="_blank">Retenciones SGA y Ajustes BSCS</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3><i class="fas fa-th"  onclick="window.location.href='https://make.powerapps.com/';"  target="_blank"></i> Power Apps</h3>
+                        <ul>
+                            <li><a href="https://apps.powerapps.com/play/e/default-ec6c0d0f-6a0c-40b0-abf2-af3160580c51/a/f2c4d59f-718c-4919-8fd1-bf54455de379?tenantId=ec6c0d0f-6a0c-40b0-abf2-af3160580c51&sourcetime=1732569213972" target="_blank">Cobranzas Diferidas</a></li>
+                            <li><a href="https://apps.powerapps.com/play/e/default-ec6c0d0f-6a0c-40b0-abf2-af3160580c51/a/3623764d-0407-4130-bed4-076fe1341342?tenantId=ec6c0d0f-6a0c-40b0-abf2-af3160580c51&sourcetime=1728320141560" target="_blank">Gestión del Cambio</a></li>
+                            <li><a href="https://apps.powerapps.com/play/e/default-ec6c0d0f-6a0c-40b0-abf2-af3160580c51/a/cd970e29-cf16-469b-80e1-eb9ff81dbed3?tenantId=ec6c0d0f-6a0c-40b0-abf2-af3160580c51&hint=177df40e-5e4a-4702-9742-633fda5a5278&source=sharebutton&sourcetime=1758042984063" target="_blank">Bitácora Incidencias</a></li>
+                            <li><a href="{% url 'announcements_history' %}">Anuncios</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </li>
+            
+
+        
+            
+            <!-- <li><a href="{% url 'announcements_history' %}">Historial de Anuncios</a></li> -->
+            <div class="watch" id="realtime-clock"></div>
+        </ul>
+    </div>
+    
+    <!-- Contenido principal -->
+    <div class="main-content">
+        {% block content %}
+        <!-- El contenido específico de cada página irá aquí -->
+        {% endblock %}
+    </div>
+      <!-- aqui añadimos el boot -->
+
+      <!-- Mensaje flotante -->
+        <div id="chatbot-message" class="chatbot-message">
+            <span>
+                Pregunta directo y claro, <br>
+                resuelve tus dudas con Facturita.
+            </span>
+            <button id="chatbot-button_mensaje" class="close-button">×</button>
+        </div>
+  <!-- Botón flotante -->
+        <div id="chatbot-button" class="floating-bot">
+            <img src="{% static 'images/chatbot.png' %}" alt="Chatbot">
+        </div>
+
+    
+     <!-- Contenedor del chatbot -->
+     <div id="chatbot-container" class="chatbot-container hidden">
+        <iframe src="https://copilotstudio.microsoft.com/environments/Default-ec6c0d0f-6a0c-40b0-abf2-af3160580c51/bots/cr2e7_copiaDeGestorDeConocimiento/webchat?__version__=2" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+        <button id="close-chatbot" class="close-chatbot">X</button>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <p>© 2024 Gerencia Facturación a Clientes Claro Perú. Todos los Derechos Reservados.</p>
+    </footer>
+  
+    <script src="{% static 'script.js' %}"></script>
+    
+  
+</body>
+</html>

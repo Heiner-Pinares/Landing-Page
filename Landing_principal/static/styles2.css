@@ -1,0 +1,408 @@
+
+body {
+    position: relative;
+    font-size: 14px;
+    font-family: 'DIN', Arial, sans-serif;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e12f20;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+    background-color: #c81e1b;
+    transform: scale(1.1); /* Efecto de zoom */
+}
+.carousel-container {
+    width: 88%; /* Reduce ligeramente el ancho */
+    height: 65%; /* Ajusta la altura total */
+    margin: 80px auto; /* Reduce el margen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Elimina relleno */
+    box-sizing: border-box; /* Asegura que los bordes se respeten */
+    overflow: hidden; /* Oculta contenido extra */
+    background-color: #f9f9f9; /* Fondo claro */
+    flex-direction: column; /* Coloca los elementos en columna */
+    border-radius: 10px;
+
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden; /* Evita desbordes */
+}
+
+.carousel img {
+    flex-shrink: 0; /* Evita que las imágenes se reduzcan */
+    width: 100%;
+    height: 50%;
+    object-fit: cover; /* Escala las imágenes */
+    display: none;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel img.active {
+    display: block;
+    opacity: 1;
+}
+ /*  ES PARA PODER VIAJAR DE */
+
+
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px; /* Separación del carrusel */
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border: 2px solid #000;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.indicator.active {
+    background-color: red;
+    transform: scale(1.2); 
+}
+
+
+
+
+
+
+
+
+
+
+
+/*PIE DE PAGINA*/
+
+.footer {
+    background: #060606; /* Degradado */
+    color: #ffffff; /* Texto blanco */
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.2);
+    font-weight: bold; /* Resaltar texto */
+}
+
+.footer a {
+    color: #ff6b61;
+    text-decoration: none;
+    font-weight: 'DNI';
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #e12f20;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ENCABEZADO DE LA PAGINA*/
+
+.header {
+    background: #383838;
+    padding: 6px 8px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+.header img {
+    height: 50px; /* Tamaño del logo */
+}
+
+.header .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Centra los elementos */
+    align-items: center ;
+    gap: 20px; /* Espaciado entre los botones */
+    font-family: 'DIN', Arial, sans-serif;
+}
+
+.header .menu li {
+    position: relative; /* Necesario para dropdown */
+}
+
+
+.header .menu li a {
+    text-decoration: none;
+    color: white;
+    z-index: 1001; /* Coloca los botones del menú en una capa superior */
+    position: relative; /* Necesario para que z-index funcione correctamente */
+    background-color: #383838;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.header .menu li a:hover {
+    background-color: #383838;
+    color: white;
+    transform: scale(1.05);
+}
+/* CODIGO PARA EL RELOJ */
+.watch {
+  background-color: #fff;
+  color: #e60000;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Contenedor principal del dropdown */
+.dropdown-content {
+    
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background-color: white;
+    color: white;
+    width: auto; /* Ajusta el ancho automáticamente */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    top: 100%; /* Mostrar debajo del botón */
+    left: 0;
+    z-index: 5000;
+    flex-direction: row; /* Alinea las columnas en fila */
+    justify-content: space-between;
+    max-width: 800px;
+    gap: 20px; /* Espacio entre columnas */
+}
+
+
+
+/* Títulos de las columnas */
+.column h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #e12f20;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #383838;
+    text-align: left; /* Alineación del texto a la izquierda */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Íconos en los títulos */
+.column h3 i {
+    font-size: 20px;
+    color: #e12f20;
+}
+
+/* Lista de enlaces */
+.column ul {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+    font-size: 10px;
+   
+}
+
+.column ul li {
+    margin: 5px 0;
+    padding: 0;
+    font-size: 10px;
+}
+
+.column ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    display: block;
+    background-color: #383838;
+    font-size: 10px;
+}
+
+.column ul li a:hover {
+    color: #e12f20;
+}
+
+/* Mostrar contenido al pasar el cursor */
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+/* Añadir espaciado general al dropdown */
+.dropdown {
+    position: relative;
+    margin: 0 10px; /* Espaciado lateral entre los dropdowns */
+}
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+
+
+/*ACCIONES PRINCIPALES EN EL INCIO*/
+.custom-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5PX;
+  }
+  
+  .custom-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .custom-actions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+  
+  .custom-action-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 100px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .custom-action-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .custom-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  
+  .custom-action-delegar {
+    background-color: #2563eb;
+  }
+  
+  .custom-action-ausencias {
+    background-color: #ec4899;
+  }
+  
+  .custom-action-feedback {
+    background-color: #14b8a6;
+  }
+  
+  .custom-action-perfil {
+    background-color: #8b5cf6;
+  }
+  
+  .custom-action-organigrama {
+    background-color: #374151;
+  }
+  
+  .custom-action-asistencia {
+    background-color: #1e40af;
+  }
+  
+  .custom-action-objetivos {
+    background-color: #db2777;
+  }
+  
+  .custom-action-aprendizaje {
+    background-color: #0d9488;
+  }
+  
+  .custom-action-admin-aprendizaje {
+    background-color: #6d28d9;
+  }
+  
+  .custom-action-app-movil {
+    background-color: #4b5563;
+  }
+  
+  .custom-action-flujos {
+    background-color: #1e3a8a;
+  }
+  
+  .custom-action-recordatorios {
+    background-color: #9d174d;
+  }
+  
+  .custom-action-favoritos {
+    background-color: #0f766e;
+  }
+
+  .result-frame {
+    position: relative;
+    z-index: 10; /* Asegúrate de que el iframe esté en un nivel superior */
+  }

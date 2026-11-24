@@ -1,0 +1,259 @@
+/* Botón flotante */
+.floating-bot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #e12f20;
+    border-radius: 50%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 2000;
+}
+
+.floating-bot img {
+    width: 35px;
+    height: 35px;
+}
+
+.floating-bot:hover {
+    transform: scale(1.1);
+    background-color: #ff6b61;
+}
+
+/* Contenedor del chatbot */
+.chatbot-container {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 350px;
+    height: 450px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 2000;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Ocultar el contenedor por defecto */
+.hidden {
+    transform: translateY(100%);
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Mostrar el contenedor */
+.chatbot-container.show {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Botón de cerrar chatbot */
+.close-chatbot {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e12f20;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.close-chatbot:hover {
+    transform: scale(1.1);
+    background-color: #ff6b61;
+}
+
+
+
+.chatbot-message {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background-color: #ffffff;
+    color: #333333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 2000;
+    display: none;
+    max-width: 250px;
+}
+
+.chatbot-message.show {
+    display: block;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-button:hover {
+    color: #ff0000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ANUNCIOS DE PARA LAS PERSONAS */
+/* ANUNCIOS DE PARA LAS PERSONAS */
+.announcement {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2100;
+}
+
+/* Contenido del anuncio */
+.announcement-content {
+    position: relative;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px; /* Ancho máximo fijo */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    color: #000;
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+}
+
+/* Imagen dentro del anuncio */
+.announcement-content img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin: 10px 0; /* Margen para separación */
+}
+
+/* Texto dentro del anuncio */
+.announcement-content p {
+    margin: 10px 0;
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: center; /* Centra el texto */
+}
+
+/* Botón de cierre */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #000;
+}
+
+
+
+
+/*BOTON DE VER ANUNCIOS*/
+
+.show-btn {
+    background-color: #e12f20;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-left: 10px; /* Ajusta el margen según sea necesario */
+    z-index: 2001; /* Asegúrate de que el botón esté por encima del anuncio */
+}
+.show-btn.visible {
+    display: block; /* Usar una clase para hacerlo visible */
+}
+
+/*buscador de google*/
+
+.search-bar-container {
+    position: relative; /* Cambia de absolute a relative para evitar conflictos */
+    margin: 20px auto;
+    width: fit-content; /* Ajusta el ancho al contenido */
+    top: 50px; /* Ajusta la distancia desde la parte superior */
+    z-index: 500; /* Asegúrate de que esté por encima pero no excesivamente */
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 20px;
+    width: 450px;
+    font-size: 16px;
+}
+
+.search-button {
+    background-color: #e12f20;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+.search-button:hover {
+    background-color: #e12f20;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
