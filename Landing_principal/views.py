@@ -8,7 +8,7 @@ from django.shortcuts import render
 def landing_page(request):
     announcement = Announcement.objects.last()  # Obtener el último anuncio
     transition_images = TransitionImage.objects.all()  # Obtener todas las imágenes de transición
-    return render(request, 'landing_modern.html', {
+    return render(request, 'landing_page2.html', {
         'announcement': announcement,
         'transition_images': transition_images,
     })
@@ -28,4 +28,4 @@ def my_view(request):
     }) 
 
 def  find_person(request):
-      return render(request, 'buscar_personas_modern.html')
+      return render(request, 'buscar_personas.html')
