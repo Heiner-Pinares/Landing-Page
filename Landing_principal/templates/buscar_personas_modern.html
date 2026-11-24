@@ -1,0 +1,37 @@
+{% extends 'base_modern.html' %}
+
+{% block title %}Buscar Persona | Portal de Facturación{% endblock %}
+
+{% block content %}
+<div class="content-shell">
+    <h1 class="content-title">Buscar Persona</h1>
+    <p class="content-intro">Consulta el directorio corporativo de Claro.</p>
+    <div class="search-card directory-search">
+        <form class="search-form" id="directory-form" autocomplete="off">
+            <svg class="search-mark" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.9" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.8"></circle><path d="m16.5 16.5 5 5"></path></svg>
+            <input type="search" id="directory-query" placeholder="Buscar persona" aria-label="Buscar persona">
+            <button type="submit" class="search-button">Buscar</button>
+        </form>
+    </div>
+    <iframe id="result-frame" class="directory-frame" title="Resultados del directorio corporativo"></iframe>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('directory-form');
+    const query = document.getElementById('directory-query');
+    const frame = document.getElementById('result-frame');
+    const previous = localStorage.getItem('nombreBuscado') || '';
+    if (previous) {
+        query.value = previous;
+        frame.src = 'http://eclaro/SitePages/BusquedaPersonas.aspx?k=' + encodeURIComponent(previous);
+    }
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const value = query.value.trim();
+        if (!value) { query.focus(); return; }
+        localStorage.setItem('nombreBuscado', value);
+        frame.src = 'http://eclaro/SitePages/BusquedaPersonas.aspx?k=' + encodeURIComponent(value);
+    });
+});
+</script>
+{% endblock %}

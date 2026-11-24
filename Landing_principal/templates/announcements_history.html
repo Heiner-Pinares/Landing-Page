@@ -1,16 +1,19 @@
-{% extends 'base.html' %}
+{% extends 'base_modern.html' %}
 {% block title %}Landing Page - Facturación a Clientes{% endblock %}
 {% block content %}
-
-
-<h1>Historial de Anuncios</h1>
-<div style="display: flex; flex-wrap: wrap; padding: 25px;">
-    {% for announcement in announcements %}
-    <div style="flex: 1 1 30%; margin: 10px; border: 1px solid #ccc; border-radius: 8px; padding: 10px;">
-        <img src="{{ announcement.image.url }}" alt="Anuncio" style="width: 100%; border-radius: 8px;">
-        <p><strong>Descripción:</strong> {{ announcement.description }}</p>
-        <p><strong>Fecha:</strong> {{ announcement.created_at }}</p>
+<div class="content-shell">
+    <h1 class="content-title">Historial de Anuncios</h1>
+    <p class="content-intro">Consulta las comunicaciones publicadas por la Gerencia de Facturación.</p>
+    <div class="announcement-grid">
+        {% for announcement in announcements %}
+        <article class="announcement-card">
+            <a href="{{ announcement.image.url }}" target="_blank" rel="noopener noreferrer"><img src="{{ announcement.image.url }}" alt="Anuncio {{ forloop.counter }}" loading="lazy"></a>
+            <div class="announcement-card-body">
+                {% if announcement.description %}<p>{{ announcement.description }}</p>{% endif %}
+                <span class="announcement-date">{{ announcement.created_at }}</span>
+            </div>
+        </article>
+        {% empty %}<p>No hay anuncios publicados.</p>{% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}

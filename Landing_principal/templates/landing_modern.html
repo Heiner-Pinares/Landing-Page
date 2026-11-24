@@ -1,0 +1,111 @@
+{% extends 'base_modern.html' %}
+{% load static %}
+
+{% block title %}Claro Perú | Portal de Facturación{% endblock %}
+
+{% block content %}
+<div id="video-modal-overlay" class="modal-overlay video-modal is-visible" role="dialog" aria-modal="true" aria-label="Video de bienvenida">
+    <div class="video-modal-box">
+        <button id="video-modal-close" class="modal-close" type="button" aria-label="Cerrar video">×</button>
+        <video id="intro-video" autoplay muted playsinline><source src="{% static 'videos/trailer_guardianes.mp4' %}" type="video/mp4"></video>
+    </div>
+</div>
+
+{% if announcement and announcement.image %}
+<div id="announcement" class="modal-overlay announcement" role="dialog" aria-modal="true" aria-label="Anuncio importante" hidden>
+    <div class="announcement-content">
+        <button id="close-announcement" class="modal-close modal-close-dark" type="button" aria-label="Cerrar anuncio">×</button>
+        {% if announcement.description %}<p>{{ announcement.description }}</p>{% endif %}
+        <a href="{{ announcement.image.url }}" target="_blank" rel="noopener noreferrer"><img id="announcement-image" src="{{ announcement.image.url }}" alt="Anuncio importante"></a>
+    </div>
+</div>
+{% endif %}
+
+<section class="hero" id="inicio" aria-label="Información y publicaciones de Facturación">
+    <div class="container hero-inner">
+        <div class="hero-copy">
+            <p class="eyebrow">Gerencia de Facturación</p>
+            <h1>Portal de Facturación</h1>
+            <p class="intro">Accesos, herramientas y recursos para la gestión de facturación en Claro Perú.</p>
+        </div>
+
+        <div class="search-card" id="buscar">
+            <form class="search-form" id="people-form" autocomplete="off">
+                <svg class="search-mark" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.9" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.8"></circle><path d="m16.5 16.5 5 5"></path></svg>
+                <input type="search" id="people-query" name="nombre" placeholder="Buscar persona" aria-label="Buscar persona">
+                <button type="submit" class="search-button">Buscar</button>
+            </form>
+            <span class="vertical-separator" aria-hidden="true"></span>
+            <div class="microsoft-links" aria-label="Accesos Microsoft">
+                <a href="https://outlook.office.com/mail/" target="_blank" rel="noopener noreferrer" class="ms-link" title="Outlook" aria-label="Abrir Outlook"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="9" y="6" width="20" height="21" rx="3" fill="#0877bb"></rect><path d="M10 10 19 16l10-6v13H10z" fill="#21a8eb"></path><rect x="2" y="10" width="15" height="16" rx="2" fill="#1265a9"></rect><text x="5.5" y="22.5" fill="#fff" font-family="Arial" font-size="10" font-weight="bold">O</text></svg></a>
+                <a href="https://teams.microsoft.com/" target="_blank" rel="noopener noreferrer" class="ms-link" title="Teams" aria-label="Abrir Teams"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="24" cy="8" r="4" fill="#777de4"></circle><circle cx="15.5" cy="7" r="4" fill="#555dbf"></circle><rect x="10" y="11" width="18" height="17" rx="4" fill="#777cde"></rect><rect x="2" y="10" width="18" height="16" rx="3" fill="#535bbf"></rect><text x="6.4" y="22" fill="#fff" font-family="Arial" font-size="12" font-weight="bold">T</text></svg></a>
+                <a href="https://app.powerbi.com/home?ctid=ec6c0d0f-6a0c-40b0-abf2-af3160580c51" target="_blank" rel="noopener noreferrer" class="ms-link" title="Power BI" aria-label="Abrir Power BI"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="18" width="7" height="11" rx="1.3" fill="#f8d239"></rect><rect x="12" y="11" width="7" height="18" rx="1.3" fill="#f5c621"></rect><rect x="21" y="4" width="8" height="25" rx="1.4" fill="#e2ad08"></rect></svg></a>
+            </div>
+        </div>
+
+        <section id="publicaciones" aria-label="Carrusel de imágenes publicadas">
+            <div class="carousel-card" data-carousel>
+                <div class="carousel-top">
+                    <p id="image-title">Publicaciones de Facturación</p>
+                    <button type="button" id="expand-image" class="light-button" title="Ampliar imagen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"></path></svg> Ampliar</button>
+                </div>
+                <div class="stage">
+                    <button class="carousel-arrow prev" type="button" aria-label="Imagen anterior" id="prev-slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 18-6-6 6-6"></path></svg></button>
+                    <div class="carousel-slides">
+                        {% for image in transition_images %}
+                        <img class="slide-image{% if forloop.first %} is-active{% endif %}" src="{{ image.image.url }}" data-title="Publicación {{ forloop.counter }}" alt="Publicación de Facturación {{ forloop.counter }}" draggable="false"{% if not forloop.first %} hidden{% endif %}>
+                        {% empty %}<div class="carousel-empty">No hay imágenes publicadas en el carrusel.</div>{% endfor %}
+                    </div>
+                    <button class="carousel-arrow next" type="button" aria-label="Imagen siguiente" id="next-slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"></path></svg></button>
+                </div>
+                <div class="carousel-bottom">
+                    <span class="slide-counter" id="slide-counter">00 / 00</span>
+                    <div class="dots" id="slide-dots" aria-label="Elegir imagen del carrusel"></div>
+                    <div class="carousel-right"><button class="pause-button" id="autoplay" type="button" aria-label="Pausar carrusel">Pausar <span aria-hidden="true">Ⅱ</span></button></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+<section class="quick-section" id="acciones" aria-label="Acciones rápidas">
+    <div class="container">
+        <div class="section-heading">
+            <span class="heading-symbol" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"></path><path d="m3 12 9 5 9-5M3 16l9 5 9-5"></path></svg></span>
+            <h2>Acciones Rápidas</h2><div class="heading-line"></div>
+        </div>
+        <div class="quick-grid">
+            <a href="http://intranetrrhh/web_regasistencia/DefaultBody.aspx" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="calendar" data-color="blue"><span class="quick-icon"></span><span class="quick-name">Registro de Asistencia</span></a>
+            <a href="http://isim.tim.com.pe/itim/self/jsp/logon/login.jsp" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="key" data-color="rose"><span class="quick-icon"></span><span class="quick-name">Autoservicio Clave Única</span></a>
+            <a href="https://successfactors.claro.com.pe/" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="users-settings" data-color="violet"><span class="quick-icon"></span><span class="quick-name">Success Factors</span></a>
+            <a href="http://wfportalnintex/dir/operacionescomerciales/FacturacionVarios/FacturacionVarios/Forms/AllItems.aspx" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="gear" data-color="teal"><span class="quick-icon"></span><span class="quick-name">Nintex Facturación a Clientes</span></a>
+            <a href="http://wfportalnintex/dir/operacionescomerciales/EvidenciasSOX/EvidenciasFacturacion/Forms/AllItems.aspx" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="gear" data-color="teal"><span class="quick-icon"></span><span class="quick-name">Nintex Evidencias SOX</span></a>
+            <a href="http://172.19.219.218/Account/Login" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="network" data-color="sky"><span class="quick-icon"></span><span class="quick-name">Portal Financiero</span></a>
+            <a href="http://clarop-smartit.claro.pe" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="link" data-color="slate"><span class="quick-icon"></span><span class="quick-name">Portal Conocimiento-REMEDY</span></a>
+            <a href="http://intranetrrhh/buscapersonas/" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="users" data-color="violet"><span class="quick-icon"></span><span class="quick-name">Buscar Persona</span></a>
+            <a href="http://clarop-dwp.claro.pe" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="link" data-color="slate"><span class="quick-icon"></span><span class="quick-name">HELIX</span></a>
+            <a href="http://amxprdepr01.claro.com.co:50100/irj/portal" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="building" data-color="blue"><span class="quick-icon"></span><span class="quick-name">Portal Capex</span></a>
+            <a href="http://intranetsiop/siop/Default.aspx" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="users" data-color="rose"><span class="quick-icon"></span><span class="quick-name">Sistema de Operaciones (SIOP)</span></a>
+            <a href="http://portaldeconocimiento.claro.com.pe/web/guest/login?" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="book" data-color="teal"><span class="quick-icon"></span><span class="quick-name">Portal de Conocimiento (SUIC)</span></a>
+            <a href="http://intranetrrhh/web_visitas/" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="shield" data-color="slate"><span class="quick-icon"></span><span class="quick-name">Control de Ingresos</span></a>
+            <a href="http://intranetsicap/pprov/Default.aspx?inicio=1" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="clipboard" data-color="blue"><span class="quick-icon"></span><span class="quick-name">Portal de Provisiones</span></a>
+            <a href="http://intranetsiacunico/" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="users" data-color="rose"><span class="quick-icon"></span><span class="quick-name">SIAC Único</span></a>
+            <a href="https://administracionfinanciera.sap.claro.com.pe/" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="document" data-color="rose"><span class="quick-icon"></span><span class="quick-name">Portal y Solicitud de Provisiones</span></a>
+            <a href="http://intranetsiacrecns/siacrec/SIACREC_Login.aspx" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="tools" data-color="teal"><span class="quick-icon"></span><span class="quick-name">Sistema de Gestión de Reclamo</span></a>
+            <a href="http://intranetsisact2/sisact/Index.aspx" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="gear" data-color="teal"><span class="quick-icon"></span><span class="quick-name">Sistema de Activaciones</span></a>
+            <a href="https://ereceipt-pe-claro.sovos.com/Facturacion/login.jsp" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="dollar" data-color="violet"><span class="quick-icon"></span><span class="quick-name">SOVOS Facturación</span></a>
+            <a href="https://capacitatecarso.com/login" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="users" data-color="teal"><span class="quick-icon"></span><span class="quick-name">Carso</span></a>
+            <a href="https://identidades.claro.com.pe/isam/sps/QuickFed/saml20/login" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="document" data-color="blue"><span class="quick-icon"></span><span class="quick-name">Portal ARIBA</span></a>
+            <a href="http://172.19.44.208:8080/Facturacion/login.jsp" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="dollar" data-color="violet"><span class="quick-icon"></span><span class="quick-name">PAPERLESS</span></a>
+            <a href="https://10.95.224.27:9083/bicp/login.action?" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="person-shield" data-color="slate"><span class="quick-icon"></span><span class="quick-name">BCIP</span></a>
+            <a href="http://wfportalnintex/dir/operacionescomerciales/PedidosFacturacion/PedidosFacturacion/Forms/AllItems.aspx" target="_blank" rel="noopener noreferrer" class="quick-card" data-icon="clipboard" data-color="blue"><span class="quick-icon"></span><span class="quick-name">Portal Pedidos Facturación</span></a>
+        </div>
+    </div>
+</section>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada" aria-hidden="true">
+    <div class="lightbox-header"><span id="zoom-title">Imagen ampliada</span><button type="button" id="close-zoom">Cerrar ×</button></div>
+    <div class="lightbox-body" id="zoom-body"><img id="zoom-image" alt="Imagen ampliada"></div>
+    <div class="lightbox-actions"><button type="button" id="zoom-toggle">Ampliar a 180%</button><button type="button" id="zoom-prev">← Anterior</button><button type="button" id="zoom-next">Siguiente →</button></div>
+</div>
+{% endblock %}

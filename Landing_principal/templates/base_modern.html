@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#303135">
+    <title>{% block title %}Claro Perú | Portal de Facturación{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'portal.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="{% url 'landing_page' %}" class="brand" aria-label="Claro Perú, volver al inicio">
+                <img src="{% static 'images/Claro -Logo Blanco.png' %}" alt="Claro Perú">
+            </a>
+            <button class="mobile-menu" id="mobile-menu" type="button" aria-label="Mostrar menú" aria-expanded="false">☰</button>
+            <nav class="primary-nav" id="primary-nav" aria-label="Navegación principal">
+                <a class="nav-link{% if request.resolver_match.url_name == 'landing_page' %} is-current{% endif %}" href="{% url 'landing_page' %}">Inicio</a>
+                <a class="nav-link" href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin" target="_blank" rel="noopener noreferrer">SharePoint Gerencia Facturación</a>
+                <div class="dropdown-wrap">
+                    <button class="nav-link dropdown-toggle" type="button" aria-expanded="false"><span class="down-icon" aria-hidden="true"></span> Acceso Rápido</button>
+                    <div class="nav-menu nav-menu-single">
+                        <a href="{% url 'landing_page' %}#acciones">Ver todos los accesos</a>
+                        <a href="{% url 'landing_page' %}#buscar">Buscar persona</a>
+                        <a href="{% url 'conoce_mas' %}">Conoce la Gerencia</a>
+                        <a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/Gesti%C3%B3n-de-Documentos---Facturaci%C3%B3n.aspx" target="_blank" rel="noopener noreferrer">Gestión Documentaria</a>
+                        <a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/Capacitaciones-Facturaci%C3%B3n.aspx" target="_blank" rel="noopener noreferrer">Capacitaciones</a>
+                        <a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/Gesti%C3%B3n-de-Proyectos.aspx" target="_blank" rel="noopener noreferrer">Gestión de Proyectos</a>
+                        <a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/Gesti%C3%B3n-de-Incidencias.aspx" target="_blank" rel="noopener noreferrer">Mejora Continua</a>
+                        <a href="https://amovperu.sharepoint.com/sites/GestindeCalidadyOperacionesComerciales-Facturacin/SitePages/SGC-Facturaci%C3%B3n.aspx" target="_blank" rel="noopener noreferrer">Registro SGC</a>
+                    </div>
+                </div>
+                <div class="dropdown-wrap">
+                    <button class="nav-link dropdown-toggle" type="button" aria-expanded="false"><span class="down-icon" aria-hidden="true"></span> Plataformas Facturación</button>
+                    <div class="nav-menu nav-menu-wide">
+                        <div class="nav-column">
+                            <h3>Power BI</h3>
+                            <a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/cf6a7266-9d20-4157-ac0e-6dee1163d880?ctid=ec6c0d0f-6a0c-40b0-abf2-af3160580c51&amp;experience=power-bi" target="_blank" rel="noopener noreferrer">Métricas Facturación</a>
+                            <a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/c592da30-77de-40dd-a1bd-98d068672eee?ctid=ec6c0d0f-6a0c-40b0-abf2-af3160580c51&amp;experience=power-bi" target="_blank" rel="noopener noreferrer">Balance Scorecard</a>
+                            <a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/b9ffd5b9-2274-4a5e-93b8-eb6aab0477da?experience=power-bi" target="_blank" rel="noopener noreferrer">Efectividad Entrega Recibo</a>
+                            <a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/b5fddb02-14f0-46c5-b7b5-a6e35772d9ea?experience=power-bi" target="_blank" rel="noopener noreferrer">Cuaderno de Facturación</a>
+                            <a href="https://app.powerbi.com/groups/153ffca3-ceae-49a0-b223-18ce292d09b0/reports/a7d67047-9e45-4450-876c-de16b4080ff3?experience=power-bi" target="_blank" rel="noopener noreferrer">Cumplimiento SOX</a>
+                        </div>
+                        <div class="nav-column">
+                            <h3>Nintex Facturación</h3>
+                            <a href="http://wfportalnintex/dir/operacionescomerciales/Apadece/APADECE/Forms/AllItems.aspx" target="_blank" rel="noopener noreferrer">Facturación APEDECE</a>
+                            <a href="http://wfportalnintex/Lists/incidencias/AllItems.aspx" target="_blank" rel="noopener noreferrer">Nintex Incidencias</a>
+                            <a href="http://wfportalnintex/dir/operacionescomerciales/Refacturacion/Refacturacion/Forms/AllItems.aspx" target="_blank" rel="noopener noreferrer">Refacturación</a>
+                            <a href="http://wfportalnintex/dir/operacionescomerciales/PedidosFacturacion/PedidosFacturacion/Forms/AllItems.aspx" target="_blank" rel="noopener noreferrer">Pedidos Facturación</a>
+                            <a href="http://wfportalnintex/dir/operacionescomerciales/Reclasificacion/_layouts/15/start.aspx#/Reclasificacion/Forms/AllItems.aspx" target="_blank" rel="noopener noreferrer">Reclasificación de Pagos</a>
+                        </div>
+                        <div class="nav-column">
+                            <h3>Power Apps</h3>
+                            <a href="https://apps.powerapps.com/play/e/default-ec6c0d0f-6a0c-40b0-abf2-af3160580c51/a/f2c4d59f-718c-4919-8fd1-bf54455de379?tenantId=ec6c0d0f-6a0c-40b0-abf2-af3160580c51&amp;sourcetime=1732569213972" target="_blank" rel="noopener noreferrer">Cobranzas Diferidas</a>
+                            <a href="https://apps.powerapps.com/play/e/default-ec6c0d0f-6a0c-40b0-abf2-af3160580c51/a/3623764d-0407-4130-bed4-076fe1341342?tenantId=ec6c0d0f-6a0c-40b0-abf2-af3160580c51" target="_blank" rel="noopener noreferrer">Gestión del Cambio</a>
+                            <a href="https://apps.powerapps.com/play/e/default-ec6c0d0f-6a0c-40b0-abf2-af3160580c51/a/cd970e29-cf16-469b-80e1-eb9ff81dbed3?tenantId=ec6c0d0f-6a0c-40b0-abf2-af3160580c51" target="_blank" rel="noopener noreferrer">Bitácora de Incidencias</a>
+                            <a href="{% url 'announcements_history' %}">Historial de Anuncios</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div class="time-pill" id="realtime-clock" aria-label="Hora local">--:--:--</div>
+        </div>
+    </header>
+
+    <main class="page-content">{% block content %}{% endblock %}</main>
+
+    <div id="chatbot-message" class="chatbot-message" role="status">
+        <span>Pregunta directo y claro,<br>resuelve tus dudas con Facturita.</span>
+        <button id="chatbot-button_mensaje" class="close-message" type="button" aria-label="Cerrar mensaje">×</button>
+    </div>
+    <button id="chatbot-button" class="floating-bot" type="button" aria-label="Abrir Facturita"><img src="{% static 'images/chatbot.png' %}" alt=""></button>
+    <div id="chatbot-container" class="chatbot-container" hidden>
+        <iframe src="https://copilotstudio.microsoft.com/environments/Default-ec6c0d0f-6a0c-40b0-abf2-af3160580c51/bots/cr2e7_copiaDeGestorDeConocimiento/webchat?__version__=2" title="Facturita" frameborder="0"></iframe>
+        <button id="close-chatbot" class="close-chatbot" type="button" aria-label="Cerrar Facturita">×</button>
+    </div>
+
+    <footer class="footer">© <span id="current-year">2026</span> Gerencia Facturación a Clientes Claro Perú. Todos los Derechos Reservados.</footer>
+    <script src="{% static 'portal.js' %}"></script>
+</body>
+</html>
