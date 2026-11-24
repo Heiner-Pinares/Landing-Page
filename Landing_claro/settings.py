@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,13 +22,43 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ktl307xm2!_mtm+d@9#!@2^pktb+p$0cr6z&1od@%uaj7(qn0z'
+def env_bool(name, default=False):
+    """Read a boolean environment variable using common truthy values."""
+    return os.getenv(name, str(default)).strip().lower() in {
+        '1', 'true', 'yes', 'on'
+    }
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+DEBUG = env_bool('DJANGO_DEBUG', False)
+
+# Production values are provided by Windows environment variables. A fallback
+# is available only when local development mode is explicitly enabled.
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+if not SECRET_KEY:
+    if DEBUG:
+        SECRET_KEY = 'django-insecure-local-development-only-change-me'
+    else:
+        raise ImproperlyConfigured(
+            'DJANGO_SECRET_KEY must be configured when DJANGO_DEBUG=False.'
+        )
+
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.getenv(
+        'DJANGO_ALLOWED_HOSTS',
+        '127.0.0.1,localhost,172.19.194.219',
+    ).split(',')
+    if host.strip()
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.getenv(
+        'DJANGO_CSRF_TRUSTED_ORIGINS',
+        'http://172.19.194.219:8007',
+    ).split(',')
+    if origin.strip()
+]
 
 
 # Application definition
@@ -40,11 +73,6 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'Landing_principal',
     
-]
-MIDDLEWARE = [
-    # ...
-    'myapp.middleware.UserIPMiddleware',
-    # ...
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,7 +151,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -131,5 +160,14 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# Enable these only after IIS is configured with HTTPS. They are safe to leave
+# disabled while the site is published internally over HTTP on port 8007.
+if env_bool('DJANGO_BEHIND_HTTPS', False):
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
 
 

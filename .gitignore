@@ -1,0 +1,11 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.log
+staticfiles/
+
+# Production data must be backed up and transferred separately from Git.
+db.sqlite3
+media/
