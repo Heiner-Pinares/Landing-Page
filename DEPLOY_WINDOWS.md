@@ -31,7 +31,21 @@ $secret = [Convert]::ToBase64String($secretBytes)
 [Environment]::SetEnvironmentVariable("DJANGO_CSRF_TRUSTED_ORIGINS", "http://172.19.194.219:8007", "Machine")
 [Environment]::SetEnvironmentVariable("WAITRESS_HOST", "127.0.0.1", "Machine")
 [Environment]::SetEnvironmentVariable("WAITRESS_PORT", "8008", "Machine")
+[Environment]::SetEnvironmentVariable("AI_ASSISTANT_ENABLED", "true", "Machine")
+[Environment]::SetEnvironmentVariable("AI_REQUEST_TIMEOUT", "90", "Machine")
+[Environment]::SetEnvironmentVariable("AI_MAX_INPUT_LENGTH", "4000", "Machine")
+[Environment]::SetEnvironmentVariable("AI_MAX_HISTORY_MESSAGES", "10", "Machine")
 ```
+
+Configurar también `POWER_AUTOMATE_URL` manualmente con la URL firmada entregada
+por el responsable autorizado. No pegar su valor en este documento ni en Git:
+
+```powershell
+[Environment]::SetEnvironmentVariable("POWER_AUTOMATE_URL", "PEGAR_AQUI_SOLO_EN_EL_SERVIDOR", "Machine")
+```
+
+La configuración completa y las opciones de autorización se explican en
+`AI_ASSISTANT.md`. Reiniciar el servicio si se cambia cualquier variable.
 
 Abrir una consola nueva después de definirlas.
 
@@ -92,7 +106,9 @@ Invoke-WebRequest http://172.19.194.219:8007/admin/ -UseBasicParsing
 ```
 
 Comprobar también la portada, un anuncio, una imagen del carrusel, el historial
-y el acceso al panel administrativo.
+y el acceso al panel administrativo. Abrir Facturita, enviar una consulta breve
+y verificar en las herramientas del navegador que solo se llame a
+`/api/ai/chat/`, sin exponer la URL de Power Automate.
 
 ## Datos que deben respaldarse
 

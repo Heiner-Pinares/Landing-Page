@@ -29,6 +29,22 @@ def env_bool(name, default=False):
     }
 
 
+def env_int(name, default, minimum=1):
+    """Read a positive integer environment variable."""
+    raw_value = os.getenv(name, str(default)).strip()
+    try:
+        value = int(raw_value)
+    except ValueError as exc:
+        raise ImproperlyConfigured(
+            f'{name} must be an integer.'
+        ) from exc
+    if value < minimum:
+        raise ImproperlyConfigured(
+            f'{name} must be greater than or equal to {minimum}.'
+        )
+    return value
+
+
 DEBUG = env_bool('DJANGO_DEBUG', False)
 
 # Production values are provided by Windows environment variables. A fallback
@@ -98,6 +114,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Landing_principal.context_processors.ai_assistant',
             ],
         },
     },
@@ -160,6 +177,23 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# Corporate AI assistant. POWER_AUTOMATE_URL is a signed secret and must only
+# be supplied through the server environment; it is never exposed to clients.
+AI_ASSISTANT_ENABLED = env_bool('AI_ASSISTANT_ENABLED', False)
+POWER_AUTOMATE_URL = os.getenv('POWER_AUTOMATE_URL', '').strip()
+AI_REQUEST_TIMEOUT = env_int('AI_REQUEST_TIMEOUT', 90)
+AI_MAX_INPUT_LENGTH = env_int('AI_MAX_INPUT_LENGTH', 4000)
+AI_MAX_HISTORY_MESSAGES = env_int('AI_MAX_HISTORY_MESSAGES', 10)
+AI_RATE_LIMIT_REQUESTS = env_int('AI_RATE_LIMIT_REQUESTS', 10)
+AI_RATE_LIMIT_WINDOW = env_int('AI_RATE_LIMIT_WINDOW', 60)
+AI_ASSISTANT_REQUIRE_LOGIN = env_bool('AI_ASSISTANT_REQUIRE_LOGIN', False)
+AI_ASSISTANT_ALLOWED_GROUPS = [
+    group.strip()
+    for group in os.getenv('AI_ASSISTANT_ALLOWED_GROUPS', '').split(',')
+    if group.strip()
+]
 
 
 # Enable these only after IIS is configured with HTTPS. They are safe to leave

@@ -25,7 +25,10 @@ urlpatterns = [
     path('', views.landing_page, name='landing_page'),
     path('announcements-history/', views.announcements_history, name='announcements_history'),
     path('conoce-mas/', views.my_view, name='conoce_mas'),
-    path('buscar-persona/',views.find_person,  name='buscar_personas'),
+    path('buscar-persona/', views.find_person, name='buscar_personas'),
+    path('api/ai/chat/', views.ai_chat, name='ai_chat'),
+    path('api/ai/chat/history/', views.ai_chat_history, name='ai_chat_history'),
+    path('api/ai/chat/clear/', views.ai_chat_clear, name='ai_chat_clear'),
 
 ]
 

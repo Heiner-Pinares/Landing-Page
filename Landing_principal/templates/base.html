@@ -95,27 +95,70 @@
         <!-- El contenido específico de cada página irá aquí -->
         {% endblock %}
     </div>
-      <!-- aqui añadimos el boot -->
-
-      <!-- Mensaje flotante -->
-        <div id="chatbot-message" class="chatbot-message">
-            <span>
-                Pregunta directo y claro, <br>
-                resuelve tus dudas con Facturita.
-            </span>
-            <button id="chatbot-button_mensaje" class="close-button">×</button>
+    {% if ai_assistant_enabled %}
+    <section
+        id="ai-assistant"
+        class="ai-assistant"
+        data-chat-url="{% url 'ai_chat' %}"
+        data-history-url="{% url 'ai_chat_history' %}"
+        data-clear-url="{% url 'ai_chat_clear' %}"
+        aria-label="Asistente de inteligencia artificial"
+    >
+        <div id="ai-welcome" class="ai-welcome" role="status">
+            <span>Pregunta directo y claro,<br>resuelve tus dudas con Facturita.</span>
+            <button id="ai-welcome-close" class="ai-welcome-close" type="button" aria-label="Ocultar mensaje">×</button>
         </div>
-  <!-- Botón flotante -->
-        <div id="chatbot-button" class="floating-bot">
-            <img src="{% static 'images/chatbot.png' %}" alt="Chatbot">
-        </div>
 
-    
-     <!-- Contenedor del chatbot -->
-     <div id="chatbot-container" class="chatbot-container hidden">
-        <iframe src="https://copilotstudio.microsoft.com/environments/Default-ec6c0d0f-6a0c-40b0-abf2-af3160580c51/bots/cr2e7_copiaDeGestorDeConocimiento/webchat?__version__=2" frameborder="0" style="width: 100%; height: 100%;"></iframe>
-        <button id="close-chatbot" class="close-chatbot">X</button>
-    </div>
+        <button id="ai-launcher" class="ai-launcher" type="button" title="Asistente IA" aria-label="Abrir Asistente IA" aria-expanded="false">
+            <img src="{% static 'images/chatbot.png' %}" alt="" aria-hidden="true">
+            <span class="ai-launcher-status" aria-hidden="true"></span>
+        </button>
+
+        <div id="ai-panel" class="ai-panel" role="dialog" aria-modal="false" aria-labelledby="ai-title" hidden>
+            <header class="ai-header">
+                <div class="ai-identity">
+                    <span class="ai-avatar" aria-hidden="true">✦</span>
+                    <div>
+                        <h2 id="ai-title">Facturita IA</h2>
+                        <p>Asistente de Facturación</p>
+                    </div>
+                </div>
+                <div class="ai-header-actions">
+                    <button id="ai-new-chat" class="ai-icon-button" type="button" title="Nueva conversación" aria-label="Nueva conversación">+ ⟳</button>
+                    <button id="ai-expand" class="ai-icon-button" type="button" title="Ampliar" aria-label="Ampliar panel">⤢</button>
+                    <button id="ai-minimize" class="ai-icon-button" type="button" title="Minimizar" aria-label="Minimizar panel">−</button>
+                    <button id="ai-close" class="ai-icon-button" type="button" title="Cerrar" aria-label="Cerrar asistente">×</button>
+                </div>
+            </header>
+
+            <div id="ai-messages" class="ai-messages" aria-live="polite" aria-busy="false">
+                <div class="ai-intro" data-ai-intro>
+                    <span class="ai-intro-icon" aria-hidden="true">✦</span>
+                    <h3>¡Hola! Soy Facturita</h3>
+                    <p>Puedo orientarte sobre las funciones y accesos disponibles en este portal.</p>
+                    <div class="ai-suggestions" aria-label="Preguntas sugeridas">
+                        <button type="button" data-ai-suggestion="¿Para qué sirve este portal?">¿Para qué sirve este portal?</button>
+                        <button type="button" data-ai-suggestion="¿Qué accesos rápidos están disponibles?">¿Qué accesos rápidos hay?</button>
+                        <button type="button" data-ai-suggestion="¿Cómo consulto los anuncios?">¿Cómo consulto los anuncios?</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ai-thinking" class="ai-thinking" role="status" hidden>
+                <span></span><span></span><span></span>
+                <em>El asistente está pensando...</em>
+            </div>
+
+            <form id="ai-form" class="ai-composer">
+                {% csrf_token %}
+                <label class="sr-only" for="ai-input">Escribe tu consulta</label>
+                <textarea id="ai-input" name="pregunta" rows="1" maxlength="{{ ai_max_input_length }}" placeholder="Escribe tu consulta..." required></textarea>
+                <button id="ai-send" type="submit" aria-label="Enviar consulta" title="Enviar">➤</button>
+                <p>Enter para enviar · Shift + Enter para nueva línea</p>
+            </form>
+        </div>
+    </section>
+    {% endif %}
 
     <!-- Pie de página -->
     <footer class="footer">
